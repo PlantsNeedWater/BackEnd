@@ -21,9 +21,26 @@ async function add(plant) {
   return findById(id)
 }
 
+function update(id, changes) {
+  return db("plants")
+  .where({ id })
+  .update(changes)
+  .then(rows => {
+    return getById(id);
+    });
+};
+
+function remove(id) {
+  return db('plants')
+    .where('id', id)
+    .del();
+}
+
 module.exports = {
   getAll,
   findBy,
   findById,
-  add
+  add,
+  update,
+  remove
 }

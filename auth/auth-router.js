@@ -30,7 +30,7 @@ router.post("/login", async (req, res, next) => {
   else{
     next({status: 401, message: "invalid credentials"})
   }
-})
+});
 
 function buildToken(user) {
   const payload = {
@@ -40,6 +40,6 @@ function buildToken(user) {
     expiresIn: "1d"
   }
   return jwt.sign(payload, JWT_SECRET, options)
-}
+};
 
 module.exports = router;
