@@ -1,10 +1,9 @@
 exports.seed = function(knex, Promise) {
-  return knex('ingredients').insert([   
-    { ingredient_name: 'Broccoli',ingredient_unit:"lbs"},
-    { ingredient_name: 'Pesto',ingredient_unit:"lbs"},
-    { ingredient_name: 'Pasta',ingredient_unit:"lbs"},
-    { ingredient_name: 'Lemon',ingredient_unit:"slices"},
-    { ingredient_name: 'Chicken',ingredient_unit:"kilos"},
-    { ingredient_name: 'Salmon',ingredient_unit:"grams"}
+  return knex('plants').insert([   
+    { nickname: 'Dragon Tree',species:"Dracaena draco", h2OFrequency: 1,},
+    { nickname: 'Kapok Tree',species:"Ceiba pentandra", h2OFrequency: 2,},
+    { nickname: 'Rainbow Eucalyptus',species:"Eucalyptus deglupta", h2OFrequency: 4,},
+    { nickname: 'Giant Sequoia',species:"Sequoiadendron giganteum", h2OFrequency: 2,},
   ]);
 };
+
