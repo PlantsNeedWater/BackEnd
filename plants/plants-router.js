@@ -10,12 +10,6 @@ router.get("/", (req, res, next) => {
   .catch(next)
 });
 
-// router.get('/', (req, res, next) => {
-//   Schemes.find()
-//     .then(schemes => {
-//       res.json(schemes)
-//     })
-//     .catch(next)
-// })
+
 
 module.exports = router;
