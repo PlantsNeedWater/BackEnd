@@ -1,4 +1,7 @@
 const User = require("../auth/users-model");
+const jwt = require("jsonwebtoken");
+const {JWT_SECRET} = require("../secrets/index");
+
 
 function logger(req, res, next) {
   const date = new Date();
@@ -35,10 +38,28 @@ function validateUser(req, res, next) {
   }else{
     next()
   }
-}
+};
+
+function restricted (req, res, next) {
+  const token = req.headers.authorization
+  if(!token){
+    res.status(401).json({message: "token required"})
+  }else{
+    jwt.verify(token, JWT_SECRET, (err, decoded) => {
+      if(err){
+        res.status(401).json({message: "token invalid"})
+      }else{
+        req.decodedToken = decoded
+        next()
+      }
+    })
+  }
+};
+
 
 module.exports = {
   logger,
   validateUserId,
-  validateUser
+  validateUser,
+  restricted,
 };

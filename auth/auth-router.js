@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const User = require("./users-model");
 const { validateUserId, validateUser } = require("../middleware/middleware");
+const { checkUsernameFree } = require("./auth-middleware");
 
 router.get("/users", (req, res) => {
   User.getAll(req.query)
@@ -37,7 +38,7 @@ router.put("/users/:id", validateUserId, validateUser, (req, res) => {
     })
 })
 
-router.post("/register", validateUser, (req, res, next) => {
+router.post("/register",checkUsernameFree, validateUser, (req, res, next) => {
   const {username, password, phoneNumber} = req.body
 
   const hash = bcrypt.hashSync(password, BCRYPT_ROUNDS)
