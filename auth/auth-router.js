@@ -3,7 +3,25 @@ const {JWT_SECRET, BCRYPT_ROUNDS} = require("../secrets/index");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const User = require("./users-model")
+const User = require("./users-model");
+const { validateUserId } = require("../middleware/middleware");
+
+router.get("/users", (req, res) => {
+  User.getAll(req.query)
+    .then(users => {
+      res.status(200).json(users)
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Error retrieving the users",
+        error: error.message
+      })
+    })
+});
+
+router.get("/users/:id", validateUserId, (req, res) => {
+  res.status(200).json(req.users)
+})
 
 router.post("/register", (req, res, next) => {
   const {username, password, phoneNumber} = req.body
