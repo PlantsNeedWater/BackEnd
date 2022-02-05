@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const User = require("./users-model");
-const { validateUserId } = require("../middleware/middleware");
+const { validateUserId, validateUser } = require("../middleware/middleware");
 
 router.get("/users", (req, res) => {
   User.getAll(req.query)
@@ -21,9 +21,23 @@ router.get("/users", (req, res) => {
 
 router.get("/users/:id", validateUserId, (req, res) => {
   res.status(200).json(req.users)
+});
+
+// updating the user
+router.put("/users/:id", validateUserId, validateUser, (req, res) => {
+  User.update(req.params.id, req.body)
+    .then(users => {
+      res.status(200).json(users)
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Error updating the users",
+        error: error.message
+      })
+    })
 })
 
-router.post("/register", (req, res, next) => {
+router.post("/register", validateUser, (req, res, next) => {
   const {username, password, phoneNumber} = req.body
 
   const hash = bcrypt.hashSync(password, BCRYPT_ROUNDS)

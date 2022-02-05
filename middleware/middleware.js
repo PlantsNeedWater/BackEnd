@@ -27,9 +27,18 @@ const validateUserId = async(req, res, next) => {
     })
     next()
   }
+};
+
+function validateUser(req, res, next) {
+  if(!req.body.password || !req.body.phoneNumber){
+    res.status(400).json({message: "missing required registration field"})
+  }else{
+    next()
+  }
 }
 
 module.exports = {
   logger,
   validateUserId,
+  validateUser
 };

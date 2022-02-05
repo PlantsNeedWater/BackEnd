@@ -21,9 +21,19 @@ async function add(user) {
   return findById(id)
 };
 
+function update(id, changes) {
+  return db('users')
+    .where("user_id", id)
+    .update(changes)
+    .then(rows => {
+      return findById(id);
+    });
+}
+
 module.exports = {
   getAll,
   findBy,
   findById,
-  add
+  add,
+  update
 }
