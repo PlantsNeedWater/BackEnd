@@ -12,7 +12,7 @@ router.get("/", (req, res, next) => {
 });
 
 // create
-router.post("/", (req, res, next) => {
+router.post("/", checkPlantExists, (req, res, next) => {
   const {nickname, species, h20Frequency, image} = req.body
 
   Plant.add({nickname, species, h20Frequency, image})
