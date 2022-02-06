@@ -23,7 +23,7 @@ router.post("/", checkPlantExists, (req, res, next) => {
 });
 
 // update
-router.put("/:id", (req, res) => {
+router.put("/:id", validatePlantId, (req, res) => {
   Plant.update(req.params.id, req.body)
     .then(plants => {
       res.status(200).json(plants)
