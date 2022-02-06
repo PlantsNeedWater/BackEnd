@@ -32,7 +32,7 @@ function update(id, changes) {
 
 function remove(id) {
   return db('plants')
-    .where('id', id)
+    .where('plant_id', id)
     .del();
 }
 
