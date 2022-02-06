@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 const Plant = require("./plants-model");
-const {checkPlantExists} = require("./plants-middleware");
+const {checkPlantExists, validatePlant} = require("./plants-middleware");
 
 router.get("/", (req, res, next) => {
   Plant.getAll()
@@ -12,7 +12,7 @@ router.get("/", (req, res, next) => {
 });
 
 // create
-router.post("/", checkPlantExists, (req, res, next) => {
+router.post("/", (req, res, next) => {
   const {nickname, species, h20Frequency, image} = req.body
 
   Plant.add({nickname, species, h20Frequency, image})

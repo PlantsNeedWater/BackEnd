@@ -16,8 +16,8 @@ async function checkPlantExists(req, res, next) {
 };
 
 function validatePlant(req, res, next) {
-  if(!req.body.password || !req.body.phoneNumber){
-    res.status(400).json({message: "missing required registration field"})
+  if(!req.body.nickname || !req.body.species || req.body.h20Frequency){
+    res.status(400).json({message: "missing required plant creation field"})
   }else{
     next()
   }
