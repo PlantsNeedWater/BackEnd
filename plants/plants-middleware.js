@@ -25,7 +25,27 @@ function validatePlant(req, res, next) {
   }
 };
 
+const validatePlantId = async(req, res, next) => {
+  const {id} = req.params
+  try{
+    const plants = await Plant.findById(id)
+    if(!plants){
+      res.status(404).json({ 
+        message: "plant not found" })
+    }else{
+      req.plants = plants
+      next()
+    }
+  }catch(err){
+    res.status(500).json({
+      message:`Error:${err.message}`
+    })
+    next()
+  }
+};
+
 module.exports = {
   checkPlantExists,
   validatePlant,
+  validatePlantId
 }
