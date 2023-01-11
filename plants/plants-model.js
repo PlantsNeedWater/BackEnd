@@ -6,13 +6,13 @@ function getAll() {
 
 function findBy(filter) {
   return db("plants")
-  .where(filter)
+    .where(filter)
 };
 
 function findById(id) {
   return db("plants")
-  .select("plant_id", "nickname", "species", "h20Frequency")
-  .where("plant_id", id).first()
+    .select("plant_id", "nickname", "species", "h20Frequency")
+    .where("plant_id", id).first()
 }
 
 async function add(plant) {
@@ -23,10 +23,10 @@ async function add(plant) {
 
 function update(id, changes) {
   return db("plants")
-  .where("plant_id", id)
-  .update(changes)
-  .then(rows => {
-    return findById(id);
+    .where("plant_id", id)
+    .update(changes)
+    .then(rows => {
+      return findById(id);
     });
 };
 

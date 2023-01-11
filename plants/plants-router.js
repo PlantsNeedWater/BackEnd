@@ -36,21 +36,27 @@ router.put("/:id", validatePlantId, (req, res) => {
     })
 });
 
-delete
+// Delete
 router.delete("/:id", validatePlantId, async (req, res) => {
-  const {id} = req.params
-
+  const {id} = req.params;
+  // Find plant that you are trying to delete
+  const plant = await Plant.findById(id)
+  //delete plant
   await Plant.remove(id)
-    .then(plantTbd => {
-      res.json(plantTbd)
+    .then(() => {
+      res.json({
+        message: "Plant removed successfully",
+        data: plant
+      })
     })
     .catch(error => {
       res.status(400).json({
         message: "the plant could not be removed",
         error: error.message
       })
-  })
+    });
 });
+
 
 // router.delete("/:id", async (req, res) => {
 //   const {id} = req.params
